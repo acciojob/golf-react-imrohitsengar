@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import '../styles/App.css';
 
 class App extends Component {
@@ -14,8 +14,8 @@ class App extends Component {
     };
 
     buttonClickHandler() {
-   
-   }
+        this.setState({ renderBall: true });
+    }
     renderBallOrButton() {
 		if (this.state.renderBall) {
 		    return <div className="ball" style={this.state.ballPosition}></div>
@@ -26,7 +26,14 @@ class App extends Component {
 
     // bind ArrowRight keydown event
     componentDidMount() {
-      
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowRight" || e.keyCode === 39) {
+                this.setState((prevState) => ({
+                    posi: prevState.posi + 5,
+                    ballPosition: { left: (prevState.posi + 5) + "px" }
+                }));
+            }
+        });
     }
 
     render() {
